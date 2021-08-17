@@ -1,6 +1,7 @@
 #include <signal.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include "utils.h"
 
 void    encode(int pid, unsigned char msg)
 {
@@ -13,14 +14,12 @@ void    encode(int pid, unsigned char msg)
         if (msg % 2 == 1)
 		{
 		    kill(pid, SIGUSR1);
-			// write(1, "1\n", 2);
 		}
         else
 		{
             kill(pid, SIGUSR2);			
-			// write(1, "0\n", 2);
 		}
-		usleep(20);
+		usleep(200);
         msg = msg >> 1;
     }
 }
@@ -36,8 +35,7 @@ int		main(int argc, char **argv)
 		write(1, "Only two arguments alowed, PID then msg\n", 40);
 		return (0);
 	}
-	pid = atoi(argv[1]);
-	// encode(pid, 'h');
+	pid = ft_atoi(argv[1]);
 	while (argv[2][i])
 	{
 		encode(pid, argv[2][i]);
