@@ -12,5 +12,6 @@ int		ft_strlen(unsigned char *str);
 int		ft_atoi(char *str);
 void	ft_putchar(char c);
 void	ft_putnbr(int nbr);
+void	*ft_memcpy(void *mem, void *dest, int cpy);
 
 #endif

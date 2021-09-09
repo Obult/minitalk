@@ -2,10 +2,12 @@
 #include <signal.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "utils.h"
 
 t_decoding  msg;
 char unsigned string[] = "\0\0\0\0\0\0\0\0\0\0\0\0\0";
+unsigned char	*ft_increase(unsigned char **str, size_t len);
  
 void    sig_handler(int signum, siginfo_t *info, void *q)
 {
@@ -35,6 +37,13 @@ void    sig_handler(int signum, siginfo_t *info, void *q)
         msg.i++;
         msg.j = 0;
     }
+
+	// check if there is room left in the whole thing
+	if (!(msg.i + 1) / 16 && !msg.j)
+	{
+		msg.string = ft_increase(&msg.string, msg.i + 1);
+	}
+	
 }
  
 int     main(void)
@@ -44,7 +53,8 @@ int     main(void)
 
 	msg.j = 0;
 	msg.i = 0;
-    msg.string = string;
+    // msg.string = string;
+	msg.string = ft_increase(0, 0);
  
     act.sa_sigaction = sig_handler;
     act.sa_flags = SA_SIGINFO;
@@ -65,3 +75,13 @@ int     main(void)
     return (0);
 }
 
+unsigned char	*ft_increase(unsigned char **str, size_t len)
+{
+	unsigned char *holder;
+	if(!len)
+		return(malloc(16 * sizeof(char)));
+	holder = malloc((len + 16) * sizeof(char));
+	holder = ft_memcpy(*str, holder, len);
+	free(*str);
+	return (holder);
+}

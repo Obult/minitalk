@@ -3,6 +3,8 @@
 int		ft_strlen(unsigned char *str)
 {
 	int	i;
+
+	i = 0;
 	while (str[i])
 	{
 		i++;
@@ -43,4 +45,14 @@ void	ft_putnbr(int nbr)
 	}
 	else
 		ft_putchar(nbr + 48);
+}
+
+void	*ft_memcpy(char *mem, char *dest, int cpy)
+{
+	while (cpy)
+	{
+		cpy--;
+		dest[cpy] = mem[cpy];
+	}
+	return (dest);
 }
