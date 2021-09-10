@@ -25,4 +25,13 @@ re:			fclean all
 ${SERVER}:	${OBJ}
 				${CC} -o $@ $^ 
 
+both:		all
+				cd ../client && $(MAKE)
+
+bclean: clean
+				cd ../client && $(MAKE) clean
+
+bfclean: fclean
+				cd ../client && $(MAKE) fclean
+
 .PHONY: all clean fclean re
